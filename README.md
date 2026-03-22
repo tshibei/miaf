@@ -62,7 +62,7 @@ MIAF outperformed two alternative artifact detectors (qHFO detector alone; qHFO 
  3. HFO Classification  
 **F. Output Files**  
 **G. Example Datasets for Visualization**  
-**H. Visualizing EEG + HFO Events in EEGLAB**
+**H. Visualizing EEG + HFO Events in EEGLAB**  
 **I. Citation**
 
 ---
