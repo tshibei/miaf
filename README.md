@@ -7,6 +7,47 @@ A modular pipeline for classifying High-Frequency Oscillations (HFOs) in intracr
 
 ---
 
+## 📊 Results
+ 
+MIAF was evaluated on a fully held-out test cohort (2024) after all training and feature selection were completed on a separate cohort (2022). Key results on the **held-out test set**:
+ 
+### Classification Performance
+ 
+| Metric | Before MIAF | After MIAF |
+|---|---|---|
+| Precision (PPV) | 86% | **98%** (p < 0.001) |
+| Specificity | 0% | **92%** [89–95%] |
+| Sensitivity (naHFOs) | 100% | 73% [71–75%] |
+| Sensitivity (trueHFOs) | 100% | **86%** [84–88%] |
+| AUROC | — | **0.92** [0.90–0.93] |
+| AUPRC | — | **0.99** [0.98–0.99] |
+ 
+*Confidence intervals computed with Clopper-Pearson (specificity/sensitivity) and bootstrapping (AUROC/AUPRC).*
+ 
+### Artifact Removal
+ 
+- Removed **92.4%** of artifacts while retaining **73.1%** of non-artifactual HFOs
+- Reduced artifact contamination from **13.7% → 1.6%** of all detections (12.1% drop)
+- After filtering, **98.4%** of remaining HFOs were non-artifactual
+ 
+### Clinical Validation
+ 
+Applied to **49+ million HFO detections** from the full hospitalization of all 35 patients:
+ 
+- Improved HFO correlation with seizure onset zone (SOZ) in **76.5% of patients** (26/34)
+- Improved HFO correlation with resected volume in **88.9% of patients** (16/18)
+- Enables HFO analysis across **all states of vigilance** (not restricted to NREM sleep)
+ 
+### Model Selection
+ 
+Compared logistic regression, SVM, support vector regression, and a 3-layer neural network across 6 signal source configurations. Binary logistic regression on intracranial data (HFO channel + intracranial CAR) was selected as the final model — statistically comparable to top alternatives, with superior interpretability and no dependence on scalp EEG.
+ 
+### Benchmarking
+ 
+MIAF outperformed two alternative artifact detectors (qHFO detector alone; qHFO + muscle artifact + background activity filters) on both ROC and precision-recall curves.
+ 
+---
+
 # 📘 MASTER OUTLINE
 
 **A. Overview of the Pipeline**  
@@ -413,7 +454,7 @@ If you use MIAF in your research, please cite:
  
 ```bibtex
 @article{tan2026miaf,
-  author  = {Tan, Shi Bei and Gliske, Stephen V. and John, Nelwin S. and Kerr, Wesley and Mihaylova, Teodora and Smith, Gabriel and others},
+  author  = {Tan, Shi Bei and Gliske, Stephen V. and John, Neha Sara and Kerr, Wesley T. and Mihaylova, Temenuzhka and Smith, Garnett and McNamara, Nancy and Beimer, Nicholas and Romanowski, Erin Fedak and Stacey, William C.},
   title   = {A comprehensive, physician-trained algorithm to remove artifactual false positive {High Frequency Oscillations} in long-term intracranial {EEG}},
   journal = {Journal of Neural Engineering},
   year    = {2026},
