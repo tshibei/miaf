@@ -2,6 +2,9 @@
 
 A modular pipeline for classifying High-Frequency Oscillations (HFOs) in intracranial EEG (iEEG) as **artifactual** or **non-artifactual**. The full pipeline is implemented in **MATLAB**, with a **Python implementation** available for the classification step.
 
+> 📄 **This pipeline is described in:**
+> Tan, S. B., et al. (2026). A comprehensive, physician-trained algorithm to remove artifactual false positive High Frequency Oscillations in long-term intracranial EEG. *Journal of Neural Engineering*. *(accepted)*
+
 ---
 
 # 📘 MASTER OUTLINE
@@ -19,6 +22,7 @@ A modular pipeline for classifying High-Frequency Oscillations (HFOs) in intracr
 **F. Output Files**  
 **G. Example Datasets for Visualization**  
 **H. Visualizing EEG + HFO Events in EEGLAB**
+**I. Citation**
 
 ---
 
@@ -401,6 +405,21 @@ The classifier correctly identified the labeled HFO; however, several additional
 This epoch contains a mixture of muscle artifacts and brain-generated HFOs.
 A scalp EEG trace is also displayed for reference. Prominent HFOs appear on sharp waves, but significant muscle activity is present as well, making it difficult to differentiate the two using a single channel alone. The classifier successfully distinguished the muscle artifacts from the brain-generated HFOs.
 
+---
+
+# I. Citation
+ 
+If you use MIAF in your research, please cite:
+ 
+```bibtex
+@article{tan2026miaf,
+  author  = {Tan, Shi Bei and Gliske, Stephen V. and John, Nelwin S. and Kerr, Wesley and Mihaylova, Teodora and Smith, Gabriel and others},
+  title   = {A comprehensive, physician-trained algorithm to remove artifactual false positive {High Frequency Oscillations} in long-term intracranial {EEG}},
+  journal = {Journal of Neural Engineering},
+  year    = {2026},
+  note    = {Accepted}
+}
+```
 ---
 
 # 📄 License
