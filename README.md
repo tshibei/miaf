@@ -1,17 +1,29 @@
 # 🧠 MIAF: Michigan Intracranial Artifact Filter
 
-A modular pipeline for classifying High-Frequency Oscillations (HFOs) in intracranial EEG (iEEG) as **artifactual** or **non-artifactual**. The full pipeline is implemented in **MATLAB**, with a **Python implementation** available for the classification step.
+A physician-trained machine learning pipeline for **removing artifactual high-frequency oscillations (HFOs)** from intracranial EEG. The full pipeline is implemented in **MATLAB**, with an equivalent **Python** implementation for the classification step.
 
-> 📄 **This pipeline is described in:**
-> Tan, S. B., et al. (2026). A comprehensive, physician-trained algorithm to remove artifactual false positive High Frequency Oscillations in long-term intracranial EEG. *Journal of Neural Engineering*. *(accepted)*
+## 📄 Associated Publication
+
+> **Tan, S. B., et al. (2026)**  
+> *A comprehensive, physician-trained algorithm to remove artifactual false positive High Frequency Oscillations in long-term intracranial EEG*  
+> *Journal of Neural Engineering*  
+> https://doi.org/10.1088/1741-2552/ae512b
+
+**Key results:**
+- Improves precision from **86% → 98%**
+- **PR-AUC: 0.99**, **ROC-AUC: 0.92**
+- Trained on a curated subset of ~8,000 clinician-labeled HFO events (35 patients)
+- Evaluated on a fully held-out test set
+
+> MIAF significantly reduces false positive HFO detections while preserving clinically relevant HFOs.
 
 ---
 
-## 📊 Results
+## 📊 Results (Held-out Test Set)
  
-MIAF was evaluated on a fully held-out test cohort (2024) after all training and feature selection were completed on a separate cohort (2022). Key results on the **held-out test set**:
+MIAF was evaluated on a **fully held-out test cohort**, with all training and feature selection performed on a separate cohort. 
  
-### Classification Performance
+### 📊 Classification Performance (Held-out Test Set)
  
 | Metric | Before MIAF | After MIAF |
 |---|---|---|
@@ -24,31 +36,75 @@ MIAF was evaluated on a fully held-out test cohort (2024) after all training and
  
 *Confidence intervals computed with Clopper-Pearson (specificity/sensitivity) and bootstrapping (AUROC/AUPRC).*
  
-### Artifact Removal
+### 🧹 Artifact Removal
  
-- Removed **92.4%** of artifacts while retaining **73.1%** of non-artifactual HFOs
-- Reduced artifact contamination from **13.7% → 1.6%** of all detections (12.1% drop)
-- After filtering, **98.4%** of remaining HFOs were non-artifactual
+- Removes **92.4% of artifacts** while retaining **73.1% of non-artifactual HFOs**
+- Reduces artifact contamination from **13.7% → 1.6%**
+- After filtering, **98.4% of remaining HFOs are non-artifactual**
  
-### Clinical Validation
+### 🧠 Clinical Validation
  
-Applied to **49+ million HFO detections** from the full hospitalization of all 35 patients:
+Applied to 49+ million HFO detections across 35 patients:
  
 - Improved HFO correlation with seizure onset zone (SOZ) in **76.5% of patients** (26/34)
 - Improved HFO correlation with resected volume in **88.9% of patients** (16/18)
 - Enables HFO analysis across **all states of vigilance** (not restricted to NREM sleep)
  
-### Model Selection
+### ⚙️ Model Selection
  
-Compared logistic regression, SVM, support vector regression, and a 3-layer neural network across 6 signal source configurations. Binary logistic regression on intracranial data (HFO channel + intracranial CAR) was selected as the final model — statistically comparable to top alternatives, with superior interpretability and no dependence on scalp EEG.
- 
-### Benchmarking
+Multiple models were evaluated (logistic regression, SVM, SVR, neural networks).  
+A **logistic regression model** was selected for its strong performance, interpretability, and independence from scalp EEG features.
+
+### 🏁 Benchmarking
  
 MIAF outperformed two alternative artifact detectors (qHFO detector alone; qHFO + muscle artifact + background activity filters) on both ROC and precision-recall curves.
  
 ---
 
-# 📘 MASTER OUTLINE
+## 💡 Why MIAF 
+- Removes false positive HFOs, a major barrier to clinical adoption
+- Trained on physician-labeled artifacts (not heuristic rules)
+- Uses only intracranial EEG at event time
+- Improves downstream SOZ localization and clinical interpretability
+- Easily integrates with existing HFO detectors
+
+---
+
+## 🧠 Pipeline Overview
+
+MIAF consists of three modular stages:
+
+1. **EEG Preprocessing**
+   - Remove bad channels, apply CAR, bandpass filter
+
+2. **HFO Detection (User-defined)**
+   - Any detector can be used to generate candidate events
+
+3. **HFO Classification**
+   - Logistic regression classifies events as artifact vs non-artifactual HFO
+  
+---
+
+## 🚀 Quick Start
+
+```bash
+git clone https://github.com/tshibei/MIAF.git
+cd MIAF
+```
+
+**Run full pipeline (MATLAB)**
+```matlab
+demo_full_pipeline
+```
+
+**Run classification only (Python)**
+```bash
+python python/demo_classify_events.py
+```
+
+---
+
+# 📚 Documentation
 
 **A. Overview of the Pipeline**  
 **B. Repository Structure**  
@@ -448,7 +504,7 @@ A scalp EEG trace is also displayed for reference. Prominent HFOs appear on shar
 
 ---
 
-# I. Citation
+# I. 📚 Citation
  
 If you use MIAF in your research, please cite:
  
@@ -458,7 +514,7 @@ If you use MIAF in your research, please cite:
   title   = {A comprehensive, physician-trained algorithm to remove artifactual false positive {High Frequency Oscillations} in long-term intracranial {EEG}},
   journal = {Journal of Neural Engineering},
   year    = {2026},
-  note    = {Accepted}
+  doi     = {10.1088/1741-2552/ae512b}
 }
 ```
 ---
